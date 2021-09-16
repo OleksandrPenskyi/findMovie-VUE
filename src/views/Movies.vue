@@ -1,26 +1,28 @@
 <template>
-  <section class="moviesPage">
-    <Header />
-    <div class="input__wrapper">
-      <a-input-search
-        placeholder="input search film"
-        enter-button="Search"
-        size="large"
-        allowClear
-        @search="onSearch"
-      />
-    </div>
+  <Main>
+    <section class="moviesPage">
+      <Header />
+      <div class="input__wrapper">
+        <a-input-search
+          placeholder="input search film"
+          enter-button="Search"
+          size="large"
+          allowClear
+          @search="onSearch"
+        />
+      </div>
 
-    <template>
-      <FilmList :listOfFilms="foundedFilmList" />
-    </template>
-  </section>
+      <template>
+        <FilmList :listOfFilms="foundedFilmList" />
+      </template></section
+  ></Main>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import Header from "@/components/Header.vue";
 import FilmList from "@/components/FilmList.vue";
+import Main from "@/components/Main.vue";
 
 export default {
   beforeDestroy() {
@@ -33,6 +35,7 @@ export default {
   components: {
     Header,
     FilmList,
+    Main,
   },
 
   computed: {
