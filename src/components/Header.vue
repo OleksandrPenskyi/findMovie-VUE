@@ -9,6 +9,8 @@
 
 <style lang="scss" scoped>
 .header {
+  margin-bottom: 10px;
+  // height: 7vh;
   width: 100%;
   background: #b5b3ac;
 }
@@ -45,7 +47,7 @@
     transform: translate(-50%, -50%);
 
     display: block;
-    content: '';
+    content: "";
     height: 25px;
     width: 3px;
     background: #fff;

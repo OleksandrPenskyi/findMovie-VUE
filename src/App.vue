@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import Home from './views/Home.vue'
 export default {
   name: 'app',
   data() {
     return {
-      zh_CN,
     }
   },
   components: {

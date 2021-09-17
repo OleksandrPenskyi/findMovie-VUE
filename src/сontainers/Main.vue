@@ -1,7 +1,7 @@
 <template>
-  <section class="main">
+  <main class="main">
     <slot></slot>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -10,8 +10,10 @@ export default {
 };
 </script>
 
+
 <style lang="scss" scoped>
-.main {
-  background: red;
+.main{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 </style>
