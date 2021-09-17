@@ -1,30 +1,48 @@
 <template>
-  <div>
+  <div id="app">
     <router-view />
   </div>
 </template>
 
 <script>
-import Home from './views/Home.vue'
+import Home from "./views/Home.vue";
 export default {
-  name: 'app',
+  name: "app",
   data() {
-    return {
-    }
+    return {};
   },
   components: {
     Home,
-  }
-}
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+ul,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 </style>

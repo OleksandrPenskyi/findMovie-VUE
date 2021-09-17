@@ -16,7 +16,12 @@
 <script>
 export default {
   name: "FilmList",
-  props: ["listOfFilms"],
+  props: {
+    listOfFilms: {
+      type: Array,
+      required: true,
+    },
+  },
 };
 </script>
 
@@ -27,6 +32,8 @@ export default {
 }
 
 .list__item {
+  padding: 0 !important;
+
   &:hover {
     background-color: #b5b3ac;
   }
@@ -37,18 +44,16 @@ export default {
 }
 
 .list__link {
-  // font-size: 14px;
+  font-size: 18px;
+
+  width: 100%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
   font-weight: 500;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1.5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-  opacity: 0;
 }
 </style>
 
-// добавить валидацию, если строка описка пустая
+// добавить валидацию, если строка поиска пустая
+
+

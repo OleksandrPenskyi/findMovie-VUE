@@ -14,8 +14,11 @@ export default {
       ctx.commit('updateMovieInfo', data); // вызываем метод мутации для изменения стейта
     },
 
-    async getSearchMovie(ctx, query){
-      
+    async getMovieCast(ctx, id) {
+      const { data } = await axios.get(
+        `movie/${id}/credits?api_key=${key}&language=en-US`,
+      );
+      ctx.commit("updateActorsInfo", data.cast)
     }
   }, // actions
 
@@ -23,15 +26,23 @@ export default {
     updateMovieInfo(state, data) {
       state.movie = data;
     },
+
+    updateActorsInfo(state, data) {
+      state.actors = data;
+    },
   }, // reducer
 
   state: {
     movie: null,
+    actors: null
   },
 
   getters: {
     movieDescription(state) {
       return state.movie;
+    },
+    actorsDescription(state) {
+      return state.actors;
     },
   }, // selector
 };
