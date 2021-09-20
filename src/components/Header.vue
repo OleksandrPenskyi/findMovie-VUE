@@ -10,7 +10,6 @@
 <style lang="scss" scoped>
 .header {
   margin-bottom: 10px;
-  // height: 7vh;
   width: 100%;
   background: #b5b3ac;
 }

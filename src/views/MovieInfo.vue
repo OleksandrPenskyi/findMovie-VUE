@@ -36,11 +36,13 @@
           </div>
         </div>
 
-        <div v-show="isActorsShown" class="main-wrapper centered">
-          <ActorsList :actorsList="actorsList" />
+        <div v-if="isActorsShown" class="main-wrapper centered">
+          <ActorsList />
         </div>
 
-        <div v-show="isReviewsShown">123</div>
+        <div v-if="isReviewsShown" class="main-wrapper centered">
+          <ReviewsList />
+        </div>
       </Main>
     </Container>
   </section>
@@ -53,36 +55,33 @@ import GoBackBtn from "../components/GoBackBtn.vue";
 import Container from "../сontainers/Container.vue";
 import Main from "../сontainers/Main.vue";
 import ActorsList from "../components/ActorsList/ActorsList.vue";
+import ReviewsList from "../components/ReviewsList/ReviewsList.vue";
 
 export default {
   name: "MovieInfo",
-
   created() {
     const filmId = this.$router.history.current.params.id;
     this.getFullMovieInfo(filmId);
-    this.getMovieCast(filmId);
   },
-
   data() {
     return {
       isActorsShown: false,
       isReviewsShown: false,
     };
   },
-
   methods: {
-    ...mapActions(["getFullMovieInfo", "getMovieCast"]),
+    ...mapActions(["getFullMovieInfo"]),
     toggleShowActors() {
       this.isActorsShown = !this.isActorsShown;
+      this.isReviewsShown = false;
     },
-
     toggleShowReviews() {
       this.isReviewsShown = !this.isReviewsShown;
+      this.isActorsShown = false;
     },
   },
-
   computed: {
-    ...mapGetters(["movieDescription", "actorsDescription", "title"]),
+    ...mapGetters(["movieDescription", "title"]),
     title() {
       if (this.movieDescription) {
         return (
@@ -133,12 +132,6 @@ export default {
         return this.movieDescription.overview || "No info";
       }
     },
-
-    actorsList() {
-      if (this.actorsDescription) {
-        return this.actorsDescription;
-      }
-    },
   },
 
   components: {
@@ -147,6 +140,7 @@ export default {
     Container,
     Main,
     ActorsList,
+    ReviewsList,
   },
 };
 </script>

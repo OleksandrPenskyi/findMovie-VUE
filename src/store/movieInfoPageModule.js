@@ -10,15 +10,20 @@ export default {
       const { data } = await axios.get(
         `movie/${id}?api_key=${key}&language=en-US`
       );
-
       ctx.commit('updateMovieInfo', data); // вызываем метод мутации для изменения стейта
     },
 
-    async getMovieCast(ctx, id) {
-      const { data } = await axios.get(
-        `movie/${id}/credits?api_key=${key}&language=en-US`,
+    async getMovieCast(ctx) {
+      const { data: { cast } } = await axios.get(
+        `movie/${ctx.getters.movieId}/credits?api_key=${key}&language=en-US`,
       );
-      ctx.commit("updateActorsInfo", data.cast)
+      return cast;
+    },
+    async getMovieReviews(ctx) {
+      const { data: { results } } = await axios.get(
+        `movie/${ctx.getters.movieId}/reviews?api_key=${key}&language=en-US&page=1`,
+      );
+      return results;
     }
   }, // actions
 
@@ -26,23 +31,18 @@ export default {
     updateMovieInfo(state, data) {
       state.movie = data;
     },
-
-    updateActorsInfo(state, data) {
-      state.actors = data;
-    },
   }, // reducer
 
   state: {
     movie: null,
-    actors: null
   },
 
   getters: {
     movieDescription(state) {
       return state.movie;
     },
-    actorsDescription(state) {
-      return state.actors;
-    },
+    movieId(state) {
+      return state.movie.id;
+    }
   }, // selector
 };

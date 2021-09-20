@@ -12,7 +12,7 @@
       width="30px"
       height="30px"
       viewBox="0 0 299.021 299.021"
-      style="enable-background:new 0 0 299.021 299.021;"
+      style="enable-background: new 0 0 299.021 299.021"
       xml:space="preserve"
     >
       <g>
@@ -49,12 +49,6 @@
 export default {
   methods: {
     goBackBtn() {
-      console.log(this.$router);
-      // if (!this.$router) {
-      //   this.$router.push('/');
-      //   return;
-      // }
-
       this.$router.go(-1);
     },
   },
