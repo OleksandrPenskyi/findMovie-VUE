@@ -10,7 +10,7 @@ export default {
       const { data } = await axios.get(
         `movie/${id}?api_key=${key}&language=en-US`
       );
-      ctx.commit('updateMovieInfo', data); // вызываем метод мутации для изменения стейта
+      return data;
     },
 
     async getMovieCast(ctx) {
@@ -27,22 +27,9 @@ export default {
     }
   }, // actions
 
-  mutations: {
-    updateMovieInfo(state, data) {
-      state.movie = data;
-    },
-  }, // reducer
+  mutations: {}, // reducer
 
-  state: {
-    movie: null,
-  },
+  state: {},
 
-  getters: {
-    movieDescription(state) {
-      return state.movie;
-    },
-    movieId(state) {
-      return state.movie.id;
-    }
-  }, // selector
+  getters: {}, // selector
 };

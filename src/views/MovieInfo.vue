@@ -37,7 +37,7 @@
         </div>
 
         <div v-if="isActorsShown" class="main-wrapper centered">
-          <ActorsList />
+          <ActorsList :filmId="filmId" />
         </div>
 
         <div v-if="isReviewsShown" class="main-wrapper centered">
@@ -57,14 +57,18 @@ import Main from "../сontainers/Main.vue";
 import ActorsList from "../components/ActorsList/ActorsList.vue";
 import ReviewsList from "../components/ReviewsList/ReviewsList.vue";
 
+//! вот сдесь не записывать в стейт, а передавать id фильма в пропсах
+
 export default {
   name: "MovieInfo",
-  created() {
+  async created() {
     const filmId = this.$router.history.current.params.id;
-    this.getFullMovieInfo(filmId);
+    const data = await this.getFullMovieInfo(filmId);
+    this.movieDescription = data;
   },
   data() {
     return {
+      movieDescription: "",
       isActorsShown: false,
       isReviewsShown: false,
     };
@@ -81,7 +85,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["movieDescription", "title"]),
+    ...mapGetters(["title"]),
     title() {
       if (this.movieDescription) {
         return (
@@ -130,6 +134,12 @@ export default {
     overview() {
       if (this.movieDescription) {
         return this.movieDescription.overview || "No info";
+      }
+    },
+
+    filmId() {
+      if (this.movieDescription) {
+        return this.movieDescription.id;
       }
     },
   },

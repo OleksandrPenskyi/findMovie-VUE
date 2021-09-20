@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import Header from "@/components/Header.vue";
 import FilmList from "@/components/FilmList.vue";
 import Container from "../сontainers/Container.vue";
@@ -21,15 +21,15 @@ import Main from "../сontainers/Main.vue";
 export default {
   name: "Home",
 
-  created() {
-    this.fetchTrendFilms(); // записываем в стейт список популярных фильмов
+  async created() {
+    const data = await this.fetchTrendFilms(); // записываем в стейт список популярных фильмов
+    this.trendList = [...data];
   },
 
   data: () => ({
-    title: "asd",
+    trendList: [],
   }),
 
-  computed: mapGetters(["trendList"]),
   methods: mapActions(["fetchTrendFilms"]),
 
   components: {

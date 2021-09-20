@@ -17,7 +17,7 @@ export default {
   name: "ActorsList",
 
   async created() {
-    const data = await this.getMovieCast();
+    const data = await this.getMovieCast(this.filmId);
     this.actorsList = [...data];
   },
 
@@ -25,6 +25,10 @@ export default {
     return {
       actorsList: [],
     };
+  },
+
+  props: {
+    filmId,
   },
 
   methods: {

@@ -7,28 +7,17 @@ const key = 'b64caab08fba93d81c21d11e24838717';
 
 export default {
   actions: {
-    async fetchTrendFilms(ctx) {
+    async fetchTrendFilms() {
       const {
         data: { results },
       } = await axios.get(`trending/movie/day?api_key=${key}`);
-
-      ctx.commit('updateTrendFilmList', results); // вызываем метод мутации для изменения стейта
+      return results
     },
   }, // actions
 
-  mutations: {
-    updateTrendFilmList(state, filmList) {
-      state.topFilmList = filmList;
-    },
-  }, // reducer
+  mutations: {}, // reducer
 
-  state: {
-    topFilmList: [],
-  },
+  state: {},
 
-  getters: {
-    trendList(state) {
-      return state.topFilmList;
-    },
-  }, // selector
+  getters: {}, // selector
 };

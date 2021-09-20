@@ -30,7 +30,6 @@ import Main from "../сontainers/Main.vue";
 export default {
   beforeDestroy() {
     this.clearFoundedFilmList();
-    // console.log(this.$store); // доступ к глобальной переменной сторе
   },
 
   name: "Movies",
