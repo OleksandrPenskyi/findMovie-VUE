@@ -26,21 +26,6 @@
           />
         </g>
       </g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
-      <g></g>
     </svg>
   </div>
 </template>
@@ -49,7 +34,16 @@
 export default {
   methods: {
     goBackBtn() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      console.log(window.history);
+      // const { current, _startLocation } = this.$router.history;
+      // console.log(this.$router.history);
+      // if (current.fullPath === _startLocation) {
+      //   console.log("go home");
+      // } else {
+      //   console.log("go back");
+      //   // this.$router.go(-1);
+      // }
     },
   },
 };

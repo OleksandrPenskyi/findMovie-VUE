@@ -4,7 +4,7 @@
       <a-list-item slot="renderItem" slot-scope="film" class="list__item">
         <router-link
           class="list__link"
-          :to="{ name: 'movie', params: { id: film.id } }"
+          :to="{ name: 'movieInfo', params: { id: film.id } }"
         >
           {{ film.original_title }}
         </router-link>

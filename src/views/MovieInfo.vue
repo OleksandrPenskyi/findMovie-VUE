@@ -1,74 +1,68 @@
  <template>
   <section class="moviesInfoPage">
-    <Container>
-      <Header />
-      <GoBackBtn />
+    <GoBackBtn />
+    
+    <Main>
+      <div class="main-wrapper">
+        <img class="poster" :src="poster" alt="title" />
+        
+        <div class="description">
+          <h2 class="title">
+            <span>{{ title }} </span>
+            <span>({{ date }})</span>
+          </h2>
+          <h3 v-show="tagline" class="tagline">"{{ tagline }}"</h3>
+          <p class="title-desr">
+            <span class="title-name">Overview: </span>{{ overview }}
+          </p>
+          <p class="title-desr">
+            <span class="title-name">Genres: </span>{{ genres }}
+          </p>
+          <p class="title-desr">
+            <span class="title-name">Status: </span>{{ status }}
+          </p>
+          <p class="title-desr">
+            <span class="title-name">IMDB: </span>{{ rating }}
+          </p>
 
-      <Main>
-        <div class="main-wrapper">
-          <img class="poster" :src="poster" alt="title" />
-
-          <div class="description">
-            <h2 class="title">
-              <span>{{ title }} </span>
-              <span>({{ date }})</span>
-            </h2>
-            <h3 v-show="tagline" class="tagline">"{{ tagline }}"</h3>
-            <p class="title-desr">
-              <span class="title-name">Overview: </span>{{ overview }}
-            </p>
-            <p class="title-desr">
-              <span class="title-name">Genres: </span>{{ genres }}
-            </p>
-            <p class="title-desr">
-              <span class="title-name">Status: </span>{{ status }}
-            </p>
-            <p class="title-desr">
-              <span class="title-name">IMDB: </span>{{ rating }}
-            </p>
-
-            <a-button type="button" @click="toggleShowActors"
-              >Show Actors</a-button
-            >
-            <a-button type="button" @click="toggleShowReviews"
-              >Show Reviews</a-button
-            >
-          </div>
+          <a-button type="button" @click="toggleShowActors"
+            >Show Actors</a-button
+          >
+          <a-button type="button" @click="toggleShowReviews"
+            >Show Reviews</a-button
+          >
         </div>
+      </div>
 
-        <div v-if="isActorsShown" class="main-wrapper centered">
-          <ActorsList :filmId="filmId" />
-        </div>
+      <div v-if="isActorsShown" class="main-wrapper centered">
+        <ActorsList :filmId="filmId" />
+      </div>
 
-        <div v-if="isReviewsShown" class="main-wrapper centered">
-          <ReviewsList />
-        </div>
-      </Main>
-    </Container>
+      <div v-if="isReviewsShown" class="main-wrapper centered">
+        <ReviewsList :filmId="filmId"/>
+      </div>
+    </Main>
   </section>
 </template> 
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Header from "../components/Header.vue";
 import GoBackBtn from "../components/GoBackBtn.vue";
-import Container from "../сontainers/Container.vue";
 import Main from "../сontainers/Main.vue";
 import ActorsList from "../components/ActorsList/ActorsList.vue";
 import ReviewsList from "../components/ReviewsList/ReviewsList.vue";
 
-//! вот сдесь не записывать в стейт, а передавать id фильма в пропсах
-
 export default {
   name: "MovieInfo",
   async created() {
-    const filmId = this.$router.history.current.params.id;
-    const data = await this.getFullMovieInfo(filmId);
+    const id = this.$router.history.current.params.id;
+    const data = await this.getFullMovieInfo(id);
     this.movieDescription = data;
   },
+
   data() {
     return {
-      movieDescription: "",
+      movieDescription: null,
       isActorsShown: false,
       isReviewsShown: false,
     };
@@ -145,9 +139,7 @@ export default {
   },
 
   components: {
-    Header,
     GoBackBtn,
-    Container,
     Main,
     ActorsList,
     ReviewsList,
@@ -157,8 +149,7 @@ export default {
 
 <style lang="scss" scoped>
 .moviesInfoPage {
-  height: 100vh;
-  background: #e0dfda;
+  // min-height: 100vh;
 }
 .main-wrapper {
   padding-bottom: 30px;

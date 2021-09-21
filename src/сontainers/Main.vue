@@ -1,19 +1,33 @@
 <template>
   <main class="main">
-    <slot></slot>
+    <Container>
+      <div class="main-wrapper">
+        <slot></slot>
+      </div>
+    </Container>
   </main>
 </template>
 
 <script>
+import Container from "../сontainers/Container.vue";
+
 export default {
   name: "Main",
+
+  components: {
+    Container,
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
-.main{
-    padding-left: 10px;
-    padding-right: 10px;
+.main {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.main-wrapper{
+  background: #fff;
 }
 </style>

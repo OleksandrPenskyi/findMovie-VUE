@@ -1,6 +1,6 @@
 <template>
   <section class="review-section">
-    <ul>
+    <ul v-if="isListExist">
       <ReviewsItem
         v-for="{
           author_details: { avatar_path, rating, name, username },
@@ -17,6 +17,8 @@
         :date="updated_at"
       />
     </ul>
+
+    <p v-else class="no-review">There is no review about this film!</p>
   </section>
 </template>
 
@@ -29,8 +31,15 @@ export default {
   name: "ReviewsList",
 
   async created() {
-    const data = await this.getMovieReviews();
+    const data = await this.getMovieReviews(this.filmId);
     this.reviewsList = [...data];
+  },
+
+  props: {
+    filmId: {
+      type: Number,
+      required: true,
+    },
   },
 
   data() {
@@ -45,6 +54,10 @@ export default {
 
   computed: {
     ...mapGetters(["movieId"]),
+
+    isListExist() {
+      return this.reviewsList.length > 0;
+    },
   },
 
   components: {
@@ -57,5 +70,10 @@ export default {
 .review-section {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+.no-review {
+  color: #000;
+  font-size: 24px;
+  font-weight: 600;
 }
 </style>

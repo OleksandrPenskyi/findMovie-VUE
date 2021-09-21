@@ -7,7 +7,11 @@ export default new Router({
   mode: 'history',
   //   base: process.env.BASE_URL,
   routes: [
-    { path: '/', name: 'home', component: () => import('@/views/Home.vue') },
+    {
+      path: '/',
+      name: 'home',
+      component: () => import('@/views/Home.vue')
+    },
     {
       path: '/movies',
       name: 'movies',
@@ -15,8 +19,13 @@ export default new Router({
     },
     {
       path: '/movie/:id',
-      name: 'movie',
+      name: 'movieInfo',
       component: () => import('@/views/MovieInfo.vue'),
+    },
+    {
+      path: '*',
+      name: 'error',
+      component: () => import('@/views/Nopage.vue'),
     },
   ],
 });

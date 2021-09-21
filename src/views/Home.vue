@@ -1,28 +1,26 @@
 <template>
   <section class="homePage">
-    <Container>
-      <Header />
+    <Empty />
+    <Main>
+      <h1>Trend moovie list</h1>
 
-      <Main>
-        <h1>Trend moovie list</h1>
-        <FilmList :listOfFilms="trendList" />
-      </Main>
-    </Container>
+      <FilmList :listOfFilms="trendList" />
+    </Main>
+    <Empty />
   </section>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import Header from "@/components/Header.vue";
 import FilmList from "@/components/FilmList.vue";
-import Container from "../сontainers/Container.vue";
 import Main from "../сontainers/Main.vue";
+import Empty from "@/components/Empty.vue";
 
 export default {
   name: "Home",
 
   async created() {
-    const data = await this.fetchTrendFilms(); // записываем в стейт список популярных фильмов
+    const data = await this.fetchTrendFilms();
     this.trendList = [...data];
   },
 
@@ -33,17 +31,20 @@ export default {
   methods: mapActions(["fetchTrendFilms"]),
 
   components: {
-    Header,
     FilmList,
-    Container,
     Main,
+    Empty,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .homePage {
-  height: 100vh;
-  background: #e0dfda;
+  // min-height: 100vh;
+}
+
+.empty-container {
+  height: 30px;
+  width: 100%;
 }
 </style>

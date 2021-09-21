@@ -1,27 +1,32 @@
 <template>
   <div id="app">
+    <Header />
     <router-view />
   </div>
 </template>
 
 <script>
-import Home from "./views/Home.vue";
+import Header from "@/components/Header.vue";
 export default {
   name: "app",
+
   data() {
     return {};
   },
+
   components: {
-    Home,
+    Header,
   },
 };
 </script>
 
 <style>
 #app {
+  height: 100vh;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #e0dfda;
 }
 
 ul,

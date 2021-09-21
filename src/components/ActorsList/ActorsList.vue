@@ -21,14 +21,17 @@ export default {
     this.actorsList = [...data];
   },
 
+  props: {
+    filmId: { 
+      type: Number, 
+      required: true 
+    },
+  },
+
   data() {
     return {
       actorsList: [],
     };
-  },
-
-  props: {
-    filmId,
   },
 
   methods: {
@@ -50,7 +53,6 @@ export default {
 .actors-section {
   padding-top: 20px;
   padding-bottom: 20px;
-
   border-bottom: 1px solid #b5b3ac;
 }
 
