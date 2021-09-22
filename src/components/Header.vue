@@ -92,23 +92,14 @@ export default {
   color: #fff;
   font-weight: 700;
   font-size: 24px;
+  transition: all 200ms ease-in;
 
-  // &:hover:after {
-  //   position: absolute;
-  //   bottom: 0;
-  //   right: 0;
-
-  //   display: block;
-  //   content: "";
-  //   height: 2px;
-  //   width: 100%;
-  //   background: #fff;
-  // }
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .linkActive {
-  // color: #1890ff;
-
   &:after {
     position: absolute;
     bottom: 0;

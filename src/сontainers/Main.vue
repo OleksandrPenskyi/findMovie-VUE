@@ -25,6 +25,8 @@ export default {
 .main {
   padding-left: 10px;
   padding-right: 10px;
+
+  background: #e0dfda;
 }
 
 .main-wrapper{

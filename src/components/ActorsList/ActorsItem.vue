@@ -4,8 +4,10 @@
       <img class="img" :src="photo" alt="real_name" />
     </div>
     <div class="wrapper__descr">
-      <p class="name">{{ name }}</p>
-      <p class="character">as {{ actor.character }}</p>
+      <p class="text">
+        <span class="text__name">{{ name }}</span> <br />
+        <span class="text__character">as {{ actor.character }}</span>
+      </p>
     </div>
   </li>
 </template>
@@ -37,10 +39,10 @@ export default {
 
 <style lang="scss" scoped>
 .list-item {
-  width: calc((100% - 50px) / 5);
+  width: calc((100% - 50px) / 6);
   margin-bottom: 10px;
 
-  &:not(:nth-child(5n)) {
+  &:not(:nth-child(6n)) {
     margin-right: 10px;
   }
 }
@@ -50,7 +52,7 @@ export default {
   align-items: center;
   justify-content: center;
 
-  height: 265px;
+  height: 290px;
 }
 
 .img {
@@ -59,18 +61,30 @@ export default {
   height: auto;
 }
 
-.name {
-  font-weight: 700;
+.text {
+  margin: 0;
   text-align: center;
+
+  &__name {
+    margin: 0;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__character {
+    margin: 0;
+    text-align: center;
+  }
 }
 
 .wrapper__descr {
   height: 100px;
   padding: 10px 5px;
   background: #e0dfda;
-}
 
-.character {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -54,4 +54,31 @@ export default new Vuex.Store({
       return results;
     }
   },
+
+  mutations: {
+    showActors() {
+      this.state.isActorsVisible = !this.state.isActorsVisible;
+      this.state.isReviewsVisible = false;
+    },
+
+    showReviews() {
+      this.state.isReviewsVisible = !this.state.isReviewsVisible;
+      this.state.isActorsVisible = false;
+    },
+  },
+
+  state: {
+    isActorsVisible: false,
+    isReviewsVisible: false,
+  },
+
+  getters: {
+    getActorsVisible(state) {
+      return state.isActorsVisible;
+    },
+
+    getReviewsVisible(state) {
+      return state.isReviewsVisible;
+    },
+  },
 });

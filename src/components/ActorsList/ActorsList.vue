@@ -1,15 +1,13 @@
 <template>
-  <section class="actors-section">
+  <section v-if="isListExist" class="actors-section">
     <ul class="list">
       <ActorsItem v-for="actor in actorsList" :actor="actor" :key="actor.id" />
     </ul>
   </section>
 </template>
 
-
 <script>
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ActorsItem from "./ActorsItem.vue";
 import Container from "../../сontainers/Container.vue";
 
@@ -17,15 +15,9 @@ export default {
   name: "ActorsList",
 
   async created() {
-    const data = await this.getMovieCast(this.filmId);
+    const { id } = this.$route.params;
+    const data = await this.getMovieCast(id);
     this.actorsList = [...data];
-  },
-
-  props: {
-    filmId: { 
-      type: Number, 
-      required: true 
-    },
   },
 
   data() {
@@ -39,7 +31,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["movieId"]),
+    ...mapGetters(["getActorsVisible"]),
+
+    isListExist() {
+      return this.actorsList.length > 0 && this.getActorsVisible;
+    },
   },
 
   components: {
@@ -51,9 +47,8 @@ export default {
 
 <style lang="scss" scoped>
 .actors-section {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #b5b3ac;
+  padding: 20px;
+  margin: 0;
 }
 
 .list {
@@ -62,5 +57,7 @@ export default {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+
+  margin-bottom: -10px;
 }
 </style>

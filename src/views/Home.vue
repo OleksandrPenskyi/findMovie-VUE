@@ -1,12 +1,12 @@
 <template>
   <section class="homePage">
-    <Empty />
     <Main>
-      <h1>Trend moovie list</h1>
+      <section class="homePage__wrapper">
+        <h1>Trend moovie list</h1>
 
-      <FilmList :listOfFilms="trendList" />
+        <FilmList :listOfFilms="trendList" />
+      </section>
     </Main>
-    <Empty />
   </section>
 </template>
 
@@ -39,8 +39,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.homePage {
-  // min-height: 100vh;
+.homePage__wrapper {
+  padding: 20px;
 }
 
 .empty-container {

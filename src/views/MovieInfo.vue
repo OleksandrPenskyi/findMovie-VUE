@@ -1,52 +1,45 @@
  <template>
-  <section class="moviesInfoPage">
-    <GoBackBtn />
-    
-    <Main>
-      <div class="main-wrapper">
-        <img class="poster" :src="poster" alt="title" />
-        
-        <div class="description">
-          <h2 class="title">
-            <span>{{ title }} </span>
-            <span>({{ date }})</span>
-          </h2>
-          <h3 v-show="tagline" class="tagline">"{{ tagline }}"</h3>
-          <p class="title-desr">
-            <span class="title-name">Overview: </span>{{ overview }}
-          </p>
-          <p class="title-desr">
-            <span class="title-name">Genres: </span>{{ genres }}
-          </p>
-          <p class="title-desr">
-            <span class="title-name">Status: </span>{{ status }}
-          </p>
-          <p class="title-desr">
-            <span class="title-name">IMDB: </span>{{ rating }}
-          </p>
+  <!-- <GoBackBtn /> -->
 
-          <a-button type="button" @click="toggleShowActors"
-            >Show Actors</a-button
-          >
-          <a-button type="button" @click="toggleShowReviews"
-            >Show Reviews</a-button
-          >
-        </div>
-      </div>
+  <Main>
+    <section class="movieInfo-wrapper">
+      <img class="poster" :src="poster" alt="title" />
 
-      <div v-if="isActorsShown" class="main-wrapper centered">
-        <ActorsList :filmId="filmId" />
-      </div>
+      <div class="description">
+        <h2 class="title">
+          <span>{{ title }} </span>
+          <span>({{ date }})</span>
+        </h2>
+        <h3 v-show="tagline" class="tagline">"{{ tagline }}"</h3>
+        <p class="title-desr">
+          <span class="title-name">Overview: </span>{{ overview }}
+        </p>
+        <p class="title-desr">
+          <span class="title-name">Genres: </span>{{ genres }}
+        </p>
+        <p class="title-desr">
+          <span class="title-name">Status: </span>{{ status }}
+        </p>
+        <p class="title-desr">
+          <span class="title-name">IMDB: </span>{{ rating }}
+        </p>
 
-      <div v-if="isReviewsShown" class="main-wrapper centered">
-        <ReviewsList :filmId="filmId"/>
+        <a-button type="button" @click="toggleShowActors">
+          <router-link :to="{ name: 'actors' }">Show Actors</router-link>
+        </a-button>
+
+        <a-button type="button" @click="toggleShowReviews">
+          <router-link :to="{ name: 'reviews' }">Show Reviews</router-link>
+        </a-button>
       </div>
-    </Main>
-  </section>
+    </section>
+
+    <router-view></router-view>
+  </Main>
 </template> 
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import GoBackBtn from "../components/GoBackBtn.vue";
 import Main from "../сontainers/Main.vue";
 import ActorsList from "../components/ActorsList/ActorsList.vue";
@@ -59,23 +52,20 @@ export default {
     const data = await this.getFullMovieInfo(id);
     this.movieDescription = data;
   },
-
   data() {
     return {
       movieDescription: null,
-      isActorsShown: false,
-      isReviewsShown: false,
     };
   },
   methods: {
     ...mapActions(["getFullMovieInfo"]),
+    ...mapMutations(["showActors", "showReviews"]),
+
     toggleShowActors() {
-      this.isActorsShown = !this.isActorsShown;
-      this.isReviewsShown = false;
+      this.showActors();
     },
     toggleShowReviews() {
-      this.isReviewsShown = !this.isReviewsShown;
-      this.isActorsShown = false;
+      this.showReviews();
     },
   },
   computed: {
@@ -137,7 +127,6 @@ export default {
       }
     },
   },
-
   components: {
     GoBackBtn,
     Main,
@@ -148,19 +137,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.moviesInfoPage {
-  // min-height: 100vh;
-}
-.main-wrapper {
-  padding-bottom: 30px;
-  display: flex;
-  flex-direction: row;
+.movieInfo-wrapper {
+  padding: 20px;
 
-  width: 74%;
-  margin: auto;
+  display: flex;
 
   border-bottom: 2px solid #b5b3ac;
 }
+
 .title-name {
   margin-right: 5px;
   font-weight: 700;

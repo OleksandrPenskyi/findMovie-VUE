@@ -1,45 +1,40 @@
 <template>
-  <section class="review-section">
-    <ul v-if="isListExist">
-      <ReviewsItem
-        v-for="{
-          author_details: { avatar_path, rating, name, username },
-          id,
-          content,
-          updated_at,
-        } in reviewsList"
-        :key="id"
-        :avatar="avatar_path"
-        :rating="rating"
-        :name="name"
-        :username="username"
-        :content="content"
-        :date="updated_at"
-      />
-    </ul>
+  <div>
+    <section v-if="isListExist" class="review-section">
+      <ul v-if="isListHasLength" class="list">
+        <ReviewsItem
+          v-for="{
+            author_details: { avatar_path, rating, name, username },
+            id,
+            content,
+            updated_at,
+          } in reviewsList"
+          :key="id"
+          :avatar="avatar_path"
+          :rating="rating"
+          :name="name"
+          :username="username"
+          :content="content"
+          :date="updated_at"
+        />
+      </ul>
 
-    <p v-else class="no-review">There is no review about this film!</p>
-  </section>
+      <p v-else class="no-review">There is no review about this film!</p>
+    </section>
+  </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ReviewsItem from "../../components/ReviewsList/ReviewsItem.vue";
 
 export default {
   name: "ReviewsList",
 
   async created() {
-    const data = await this.getMovieReviews(this.filmId);
+    const { id } = this.$route.params;
+    const data = await this.getMovieReviews(id);
     this.reviewsList = [...data];
-  },
-
-  props: {
-    filmId: {
-      type: Number,
-      required: true,
-    },
   },
 
   data() {
@@ -53,10 +48,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["movieId"]),
+    ...mapGetters(["getReviewsVisible"]),
+
+    isListHasLength() {
+      return this.reviewsList.length > 0;
+    },
 
     isListExist() {
-      return this.reviewsList.length > 0;
+      return this.getReviewsVisible;
     },
   },
 
@@ -68,10 +67,11 @@ export default {
 
 <style lang="scss" scoped>
 .review-section {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  text-align: center;
+  padding: 20px;
 }
 .no-review {
+  margin: 0;
   color: #000;
   font-size: 24px;
   font-weight: 600;

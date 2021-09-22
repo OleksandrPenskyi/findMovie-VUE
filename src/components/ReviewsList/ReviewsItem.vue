@@ -4,9 +4,9 @@
     <div class="content">
       <div class="content__desription">
         <span class="date">{{ createdDate }}</span>
-        <StarRating :rating="rating" />
+        <StarRating v-if="rating" :rating="rating" />
+        <span v-else>No rating</span>
       </div>
-
       <span>{{ content }}</span>
     </div>
   </li>

@@ -21,6 +21,18 @@ export default new Router({
       path: '/movie/:id',
       name: 'movieInfo',
       component: () => import('@/views/MovieInfo.vue'),
+      children: [
+        {
+          path: 'actors',
+          name: 'actors',
+          component: () => import('@/components/ActorsList/ActorsList.vue'),
+        },
+        {
+          path: 'reviews',
+          name: 'reviews',
+          component: () => import('@/components/ReviewsList/ReviewsList.vue'),
+        }
+      ],
     },
     {
       path: '*',
