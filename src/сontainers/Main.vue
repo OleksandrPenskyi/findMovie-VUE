@@ -23,13 +23,13 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  padding-left: 10px;
-  padding-right: 10px;
-
   background: #e0dfda;
 }
 
-.main-wrapper{
+.main-wrapper {
+  padding: 76px 20px 0 20px;
+
+  height: fit-content;
   background: #fff;
 }
 </style>

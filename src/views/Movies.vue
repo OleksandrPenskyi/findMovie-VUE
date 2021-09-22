@@ -1,7 +1,7 @@
 <template>
   <section class="moviesPage">
     <Main>
-      <SearchMovieForm />
+      <!-- <SearchMovieForm /> -->
       <FilmList v-if="isListExist" :listOfFilms="searchFilmList" />
     </Main>
   </section>
@@ -50,8 +50,12 @@ export default {
     ...mapActions(["movieSearch"]),
 
     async onSearch(query) {
-      const data = await this.movieSearch(query);
-      this.searchFilmList = [...data];
+      try {
+        const data = await this.movieSearch(query);
+        this.searchFilmList = [...data];
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 
@@ -64,9 +68,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.moviesPage {
-  // min-height: 100vh;
-}
+// .moviesPage {
+//   // min-height: 100vh;
+// }
 
 .input__wrapper {
   width: 350px;

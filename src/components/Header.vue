@@ -14,20 +14,18 @@
             >Search</router-link
           >
         </div>
+
+        <SearchMovieForm v-if="activeSearchForm" />
       </div>
     </Container>
   </header>
 </template>
 
-
 <script>
 import Container from "../сontainers/Container.vue";
+import SearchMovieForm from "../components/SearchMovieForm.vue";
 
 export default {
-  components: {
-    Container,
-  },
-
   computed: {
     activeHomeLink() {
       if (this.$route.name && this.$route.name === "home") {
@@ -40,16 +38,33 @@ export default {
         return true;
       }
     },
+
+    activeSearchForm() {
+      if (this.$route.name && this.$route.name === "movies") {
+        return true;
+      }
+    },
+  },
+
+  components: {
+    Container,
+    SearchMovieForm,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .header {
+  position: absolute;
   width: 100%;
 }
 
 .header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
 
   padding-left: 20px;

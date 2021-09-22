@@ -37,7 +37,7 @@ export default new Router({
     {
       path: '*',
       name: 'error',
-      component: () => import('@/views/Nopage.vue'),
+      component: () => import('@/views/Error.vue'),
     },
   ],
 });

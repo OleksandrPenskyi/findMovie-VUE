@@ -20,8 +20,12 @@ export default {
   name: "Home",
 
   async created() {
-    const data = await this.fetchTrendFilms();
-    this.trendList = [...data];
+    try {
+      const data = await this.fetchTrendFilms();
+      this.trendList = [...data];
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   data: () => ({
@@ -39,9 +43,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.homePage__wrapper {
-  padding: 20px;
-}
+// .homePage__wrapper {
+//   // padding: 20px;
+// }
 
 .empty-container {
   height: 30px;

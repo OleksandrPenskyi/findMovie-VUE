@@ -15,9 +15,13 @@ export default {
   name: "ActorsList",
 
   async created() {
-    const { id } = this.$route.params;
-    const data = await this.getMovieCast(id);
-    this.actorsList = [...data];
+    try {
+      const { id } = this.$route.params;
+      const data = await this.getMovieCast(id);
+      this.actorsList = [...data];
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   data() {

@@ -48,9 +48,13 @@ import ReviewsList from "../components/ReviewsList/ReviewsList.vue";
 export default {
   name: "MovieInfo",
   async created() {
-    const id = this.$router.history.current.params.id;
-    const data = await this.getFullMovieInfo(id);
-    this.movieDescription = data;
+    try {
+      const id = this.$router.history.current.params.id;
+      const data = await this.getFullMovieInfo(id);
+      this.movieDescription = data;
+    } catch (error) {
+      console.log(error);
+    }
   },
   data() {
     return {

@@ -32,9 +32,13 @@ export default {
   name: "ReviewsList",
 
   async created() {
-    const { id } = this.$route.params;
-    const data = await this.getMovieReviews(id);
-    this.reviewsList = [...data];
+    try {
+      const { id } = this.$route.params;
+      const data = await this.getMovieReviews(id);
+      this.reviewsList = [...data];
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   data() {
