@@ -1,7 +1,7 @@
  <template>
   <!-- <GoBackBtn /> -->
 
-  <Main>
+  <Main class="movieInfo__main">
     <section class="movieInfo-wrapper">
       <img class="poster" :src="poster" alt="title" />
 
@@ -141,6 +141,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.movieInfo__main{
+  // height: fit-content;
+}
+
 .movieInfo-wrapper {
   padding: 20px;
 

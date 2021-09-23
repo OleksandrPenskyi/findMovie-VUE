@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <Container>
-      <div class="main-wrapper">
+      <div :class="{ mainWrapper: true, fitContent: getVisibleTabs }">
         <slot></slot>
       </div>
     </Container>
@@ -13,6 +13,29 @@ import Container from "../сontainers/Container.vue";
 
 export default {
   name: "Main",
+
+  data: () => ({
+    visible: false,
+  }),
+
+  watch: {
+    $route(to, from) {
+      if (
+        (to !== from && to.name === "actors") ||
+        (to !== from && to.name === "reviews")
+      ) {
+        this.visible = true;
+      } else {
+        this.visible = false;
+      }
+    },
+  },
+
+  computed: {
+    getVisibleTabs() {
+      return this.visible;
+    },
+  },
 
   components: {
     Container,
@@ -26,10 +49,14 @@ export default {
   background: #e0dfda;
 }
 
-.main-wrapper {
-  padding: 76px 20px 0 20px;
+.mainWrapper {
+  padding: 96px 20px 0 20px;
 
-  height: fit-content;
+  height: 100vh;
   background: #fff;
+}
+
+.fitContent {
+  height: auto;
 }
 </style>

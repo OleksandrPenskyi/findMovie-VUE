@@ -101,8 +101,8 @@ export default {
 .link {
   position: relative;
 
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 
   color: #fff;
   font-weight: 700;
