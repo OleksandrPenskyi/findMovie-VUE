@@ -12,12 +12,6 @@ axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 const key = 'b64caab08fba93d81c21d11e24838717';
 
 export default new Vuex.Store({
-  modules: {
-    homePageModules,
-    movieInfoPageModule,
-    movieFindPageModule
-  },
-
   actions: {
     async movieSearch(ctx, query) {
       const {
@@ -56,20 +50,28 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    showActors() {
+    SHOW_ACTORS () {
       this.state.isActorsVisible = !this.state.isActorsVisible;
       this.state.isReviewsVisible = false;
     },
 
-    showReviews() {
+    SHOW_REVIEWS () {
       this.state.isReviewsVisible = !this.state.isReviewsVisible;
       this.state.isActorsVisible = false;
     },
+
+    ADD_FILM_TO_FAVOURITE (_, data) {
+      this.state.favouriteFilmList.unshift(data);
+    },
+    REMOVE_FILM_FROM_FAVOURITE (_, id) {
+      this.state.favouriteFilmList = this.state.favouriteFilmList.filter(film => film.id !== id);
+    }
   },
 
   state: {
     isActorsVisible: false,
     isReviewsVisible: false,
+    favouriteFilmList: [],
   },
 
   getters: {
@@ -80,5 +82,8 @@ export default new Vuex.Store({
     getReviewsVisible(state) {
       return state.isReviewsVisible;
     },
+    getFavouriteFilmsList(state) {
+      return state.favouriteFilmList;
+    }
   },
 });

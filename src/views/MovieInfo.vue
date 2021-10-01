@@ -24,13 +24,24 @@
           <span class="title-name">IMDB: </span>{{ rating }}
         </p>
 
-        <a-button type="button" @click="toggleShowActors">
+        <a-button type="button" @click="SHOW_ACTORS()">
           <router-link :to="{ name: 'actors' }">Show Actors</router-link>
         </a-button>
 
-        <a-button type="button" @click="toggleShowReviews">
+        <a-button type="button" @click="SHOW_REVIEWS()">
           <router-link :to="{ name: 'reviews' }">Show Reviews</router-link>
         </a-button>
+
+        <a-icon
+          type="heart"
+          :theme="changeIconTheme"
+          :style="{
+            fontSize: '22px',
+            color: isAddToFavourite ? 'red' : '#b5b3ac',
+          }"
+          @click="onIconClick"
+          class="icon-wrapper"
+        />
       </div>
     </section>
 
@@ -49,7 +60,7 @@ export default {
   name: "MovieInfo",
   async created() {
     try {
-      const id = this.$router.history.current.params.id;
+      const { id } = this.$router.history.current.params;
       const data = await this.getFullMovieInfo(id);
       this.movieDescription = data;
     } catch (error) {
@@ -59,21 +70,39 @@ export default {
   data() {
     return {
       movieDescription: null,
+      isAddToFavourite: false,
     };
   },
   methods: {
     ...mapActions(["getFullMovieInfo"]),
-    ...mapMutations(["showActors", "showReviews"]),
+    ...mapMutations([
+      "SHOW_ACTORS",
+      "SHOW_REVIEWS",
+      "ADD_FILM_TO_FAVOURITE",
+      "REMOVE_FILM_FROM_FAVOURITE",
+    ]),
+    async onIconClick() {
+      const { id } = this.$router.history.current.params;
+      this.isAddToFavourite = !this.isAddToFavourite;
 
-    toggleShowActors() {
-      this.showActors();
+      if (this.isFilmInFavouriteList(+id)) {
+        await this.REMOVE_FILM_FROM_FAVOURITE(+id);
+        return;
+      }
+
+      const data = await this.getFullMovieInfo(id);
+      this.ADD_FILM_TO_FAVOURITE(data);
     },
-    toggleShowReviews() {
-      this.showReviews();
+
+    isFilmInFavouriteList(id) {
+      return this.getFavouriteFilmsList.find((film) => id === film.id);
     },
   },
   computed: {
-    ...mapGetters(["title"]),
+    ...mapGetters(["getFavouriteFilmsList"]),
+    changeIconTheme() {
+      return this.isAddToFavourite ? "filled" : "outlined";
+    },
     title() {
       if (this.movieDescription) {
         return (
@@ -124,7 +153,6 @@ export default {
         return this.movieDescription.overview || "No info";
       }
     },
-
     filmId() {
       if (this.movieDescription) {
         return this.movieDescription.id;
@@ -141,10 +169,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.movieInfo__main{
-  // height: fit-content;
-}
-
 .movieInfo-wrapper {
   padding: 20px;
 
@@ -189,5 +213,13 @@ export default {
   flex-direction: row;
   align-content: center;
   justify-content: center;
+}
+
+/deep/ .icon-wrapper {
+  transition: all 250ms ease-in;
+
+  &:hover {
+    transform: scale(1.11);
+  }
 }
 </style>
