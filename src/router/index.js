@@ -1,43 +1,48 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   //   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('@/views/Home.vue')
+      path: "/",
+      name: "home",
+      component: () => import("@/views/Home.vue"),
     },
     {
-      path: '/movies',
-      name: 'movies',
-      component: () => import('@/views/Movies.vue'),
+      path: "/movies",
+      name: "movies",
+      component: () => import("@/views/Movies.vue"),
     },
     {
-      path: '/movie/:id',
-      name: 'movieInfo',
-      component: () => import('@/views/MovieInfo.vue'),
+      path: "/input",
+      name: "input",
+      component: () => import("@/views/InputPage.vue"),
+    },
+    {
+      path: "/movie/:id",
+      name: "movieInfo",
+      component: () => import("@/views/MovieInfo.vue"),
       children: [
         {
-          path: 'actors',
-          name: 'actors',
-          component: () => import('@/components/ActorsList/ActorsList.vue'),
+          path: "actors",
+          name: "actors",
+          component: () => import("@/components/ActorsList/ActorsList.vue"),
         },
         {
-          path: 'reviews',
-          name: 'reviews',
-          component: () => import('@/components/ReviewsList/ReviewsList.vue'),
-        }
+          path: "reviews",
+          name: "reviews",
+          component: () => import("@/components/ReviewsList/ReviewsList.vue"),
+        },
       ],
     },
     {
-      path: '*',
-      name: 'error',
-      component: () => import('@/views/Error.vue'),
+      path: "*",
+      name: "error",
+      component: () => import("@/views/Error.vue"),
     },
   ],
 });

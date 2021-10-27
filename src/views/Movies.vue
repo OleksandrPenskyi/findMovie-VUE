@@ -1,34 +1,31 @@
 <template>
   <section class="moviesPage">
     <Main>
-      <!-- <SearchMovieForm /> -->
       <FilmList v-if="isListExist" :listOfFilms="searchFilmList" />
+      <a-input allow-clear v-model="state" size="large" />
     </Main>
   </section>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import FilmList from "@/components/FilmList.vue";
 import Main from "../сontainers/Main.vue";
 import SearchMovieForm from "@/components/SearchMovieForm.vue";
 
 export default {
   name: "Movies",
-
   created() {
     const query = this.$route.query.query;
     if (query) {
       this.onSearch(query);
     }
   },
-
   data() {
     return {
       searchFilmList: [],
     };
   },
-
   watch: {
     $route(newSearch, oldSearch) {
       const newQuery = newSearch.query.query;
@@ -39,13 +36,14 @@ export default {
       }
     },
   },
-
   computed: {
+    ...mapState({
+      state: (state) => state.firstInput,
+    }),
     isListExist() {
       return this.searchFilmList.length > 0;
     },
   },
-
   methods: {
     ...mapActions(["movieSearch"]),
 
