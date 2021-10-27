@@ -2,7 +2,7 @@
   <section class="moviesPage">
     <Main>
       <FilmList v-if="isListExist" :listOfFilms="searchFilmList" />
-      <a-input allow-clear v-model="state" size="large" />
+      <a-input allow-clear v-model="$store.state.firstInput" size="large" />
     </Main>
   </section>
 </template>
@@ -17,9 +17,7 @@ export default {
   name: "Movies",
   created() {
     const query = this.$route.query.query;
-    if (query) {
-      this.onSearch(query);
-    }
+    query && this.onSearch(query);
   },
   data() {
     return {
@@ -66,10 +64,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .moviesPage {
-//   // min-height: 100vh;
-// }
-
 .input__wrapper {
   width: 350px;
 }
